@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trim Video | ArabTools</title>
+  <meta name="description" content="قص فيديو مجاناً | Free video trimming tool">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header id="site-header">
+    <div class="header-inner">
+      <a class="logo" href="../index.html"><div class="logo-icon">A</div><div class="logo-text"><span class="en">ArabTools</span><span class="ar">عرب تولز</span></div></a>
+      <nav class="main-nav">
+        <a class="nav-link" href="../index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+        <a class="nav-link" href="../pages/help.html" data-ar="مساعدة" data-en="Help">مساعدة</a>
+      </nav>
+      <button class="lang-toggle" onclick="toggleLang()"><i class="fas fa-globe globe"></i><span id="lang-label">EN</span></button>
+    </div>
+  </header>
+  <div id="toast-container"></div>
+
+  <div class="tool-page-wrap">
+    <div class="adsense-banner inline" style="margin-bottom:24px"><div class="adsense-inner"><i class="fas fa-rectangle-ad" style="opacity:0.2"></i> <span data-ar="مساحة إعلانية" data-en="Ad Space">مساحة إعلانية</span></div></div>
+    <div class="tool-page-header">
+      <a class="back-btn" href="../index.html"><i class="fas fa-arrow-left"></i> <span data-ar="رجوع" data-en="Back">رجوع</span></a>
+      <div class="tool-page-icon" style="background:rgba(139,92,246,0.15);color:#8b5cf6"><i class="fas fa-cut"></i></div>
+      <div class="tool-page-info">
+        <h1><span data-ar="قص فيديو" data-en="Trim Video">قص فيديو</span></h1>
+        <p><span data-ar="اقص جزءاً من الفيديو بسهولة" data-en="Easily trim video segments">اقص جزءاً من الفيديو بسهولة</span></p>
+      </div>
+    </div>
+
+    <div class="tool-workspace">
+      <div class="upload-zone" id="upload-zone">
+        <input type="file" id="file-input" accept=".mp4,.webm,.mov,.avi">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <h3 data-ar="ارفع ملف الفيديو" data-en="Upload Video File">ارفع ملف الفيديو</h3>
+        <p data-ar="يدعم: MP4, WebM, MOV, AVI" data-en="Supports: MP4, WebM, MOV, AVI">يدعم: MP4, WebM, MOV, AVI</p>
+        <button class="btn btn-primary btn-sm" onclick="document.getElementById('file-input').click()"><i class="fas fa-folder-open"></i> <span data-ar="اختر ملفاً" data-en="Choose File">اختر ملفاً</span></button>
+      </div>
+
+      <div id="controls" style="display:none;margin-top:24px">
+        <div class="media-preview"><video id="preview" controls></video></div>
+        <div class="row" style="margin-top:20px">
+          <div class="col form-group">
+            <label class="form-label" data-ar="وقت البداية (ثانية):" data-en="Start Time (sec):">وقت البداية (ثانية):</label>
+            <input type="number" class="form-control" id="start-time" value="0" min="0" step="0.1">
+          </div>
+          <div class="col form-group">
+            <label class="form-label" data-ar="وقت النهاية (ثانية):" data-en="End Time (sec):">وقت النهاية (ثانية):</label>
+            <input type="number" class="form-control" id="end-time" value="10" min="0" step="0.1">
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px">
+          <button class="btn btn-secondary btn-sm" onclick="setCurrentAsStart()"><i class="fas fa-step-backward"></i> <span data-ar="تعيين البداية" data-en="Set Start">تعيين البداية</span></button>
+          <button class="btn btn-secondary btn-sm" onclick="setCurrentAsEnd()"><i class="fas fa-step-forward"></i> <span data-ar="تعيين النهاية" data-en="Set End">تعيين النهاية</span></button>
+          <button class="btn btn-secondary btn-sm" onclick="previewTrim()"><i class="fas fa-eye"></i> <span data-ar="معاينة" data-en="Preview">معاينة</span></button>
+        </div>
+        <button class="btn btn-primary btn-lg" onclick="doTrim()" id="trim-btn"><i class="fas fa-cut"></i> <span data-ar="قص الفيديو" data-en="Trim Video">قص الفيديو</span></button>
+        <div class="progress-bar" id="progress" style="display:none"><div class="progress-fill" id="progress-fill"></div></div>
+        <div id="result" style="display:none" class="result-box">
+          <h3 data-ar="تم القص بنجاح!" data-en="Trimmed Successfully!">تم القص بنجاح!</h3>
+          <video id="output-video" controls style="width:100%;margin:12px 0;border-radius:8px"></video>
+          <button class="btn btn-primary" onclick="downloadResult()"><i class="fas fa-download"></i> <span data-ar="تنزيل" data-en="Download">تنزيل</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <a class="logo" href="../index.html"><div class="logo-icon">A</div><div class="logo-text"><span class="en">ArabTools</span><span class="ar">عرب تولز</span></div></a>
+      <div class="footer-links">
+        <a class="footer-link" href="../index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+        <a class="footer-link" href="../pages/help.html" data-ar="المساعدة" data-en="Help">المساعدة</a>
+        <a class="footer-link" href="../pages/privacy.html" data-ar="سياسة الخصوصية" data-en="Privacy Policy">سياسة الخصوصية</a>
+      </div>
+      <p class="footer-copy" id="footer-copy">© 2025 عرب تولز — جميع الحقوق محفوظة</p>
+    </div>
+  </footer>
+
+  <script src="../js/shared.js"></script>
+  <script>
+    let currentFile = null;
+    let resultBlob = null;
+
+    setupDropZone(document.getElementById('upload-zone'), document.getElementById('file-input'), file => {
+      currentFile = file;
+      const url = URL.createObjectURL(file);
+      const vid = document.getElementById('preview');
+      vid.src = url;
+      document.getElementById('controls').style.display = 'block';
+      vid.onloadedmetadata = () => {
+        document.getElementById('end-time').value = vid.duration.toFixed(1);
+      };
+    });
+
+    function setCurrentAsStart() {
+      document.getElementById('start-time').value = document.getElementById('preview').currentTime.toFixed(1);
+    }
+    function setCurrentAsEnd() {
+      document.getElementById('end-time').value = document.getElementById('preview').currentTime.toFixed(1);
+    }
+    function previewTrim() {
+      const vid = document.getElementById('preview');
+      const start = parseFloat(document.getElementById('start-time').value) || 0;
+      vid.currentTime = start;
+      vid.play();
+    }
+
+    async function doTrim() {
+      if (!currentFile) return;
+      const start = parseFloat(document.getElementById('start-time').value) || 0;
+      const end = parseFloat(document.getElementById('end-time').value) || 10;
+      if (end <= start) { toast(lang === 'ar' ? 'وقت النهاية يجب أن يكون أكبر من البداية' : 'End time must be greater than start', 'error'); return; }
+
+      const btn = document.getElementById('trim-btn');
+      btn.disabled = true;
+      const prog = document.getElementById('progress');
+      const fill = document.getElementById('progress-fill');
+      prog.style.display = 'block';
+      fill.style.width = '10%';
+
+      try {
+        toast(lang === 'ar' ? 'جاري القص...' : 'Trimming...', 'info');
+        fill.style.width = '30%';
+
+        const blob = await processVideoWithCanvas(currentFile, (ctx, video, canvas) => {
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        }, { startTime: start, endTime: end });
+
+        fill.style.width = '100%';
+        resultBlob = blob;
+        document.getElementById('output-video').src = URL.createObjectURL(blob);
+        document.getElementById('result').style.display = 'block';
+        toast(lang === 'ar' ? 'تم القص بنجاح!' : 'Trimmed successfully!', 'success');
+      } catch(e) {
+        toast('Error: ' + e.message, 'error');
+      }
+      btn.disabled = false;
+      setTimeout(() => prog.style.display = 'none', 1000);
+    }
+
+    function downloadResult() {
+      if (resultBlob) download(resultBlob, 'trimmed-video.webm');
+    }
+  </script>
+</body>
+</html>

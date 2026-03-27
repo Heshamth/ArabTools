@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArabTools | عرب تولز</title>
+  <meta name="description" content="أدوات مجانية عبر الإنترنت للفيديو والصوت وPDF والمزيد | Free online tools for video, audio, PDF and more">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- HEADER -->
+  <header id="site-header">
+    <div class="header-inner">
+      <a class="logo" href="index.html">
+        <div class="logo-icon">A</div>
+        <div class="logo-text">
+          <span class="en">ArabTools</span>
+          <span class="ar">عرب تولز</span>
+        </div>
+      </a>
+      <nav class="main-nav">
+        <a class="nav-link active" href="index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+        <a class="nav-link" href="pages/help.html" data-ar="مساعدة" data-en="Help">مساعدة</a>
+        <a class="nav-link" href="pages/contact.html" data-ar="اتصل بنا" data-en="Contact">اتصل بنا</a>
+        <a class="nav-link" href="pages/privacy.html" data-ar="الخصوصية" data-en="Privacy">الخصوصية</a>
+      </nav>
+      <button class="lang-toggle" onclick="toggleLang()" id="lang-btn">
+        <i class="fas fa-globe globe"></i>
+        <span id="lang-label">EN</span>
+      </button>
+    </div>
+  </header>
+
+  <div id="toast-container"></div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-badge"><i class="fas fa-tools"></i> <span data-ar="أدوات مجانية 100%" data-en="100% Free Tools">أدوات مجانية 100%</span></div>
+    <h1 id="hero-title">أدواتك المجانية في مكان واحد</h1>
+    <p id="hero-sub">محرر فيديو، أدوات صوت، PDF، ومحولات — كل شيء تحتاجه عبر الإنترنت بدون تنزيل</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="num">50+</span><span class="lbl" data-ar="أداة مجانية" data-en="Free Tools">أداة مجانية</span></div>
+      <div class="hero-stat"><span class="num">4</span><span class="lbl" data-ar="فئة رئيسية" data-en="Categories">فئة رئيسية</span></div>
+      <div class="hero-stat"><span class="num">100%</span><span class="lbl" data-ar="مجاني للاستخدام" data-en="Free to Use">مجاني للاستخدام</span></div>
+    </div>
+  </section>
+
+  <!-- Top AdSense Banner -->
+  <div class="adsense-banner leaderboard" style="margin:16px auto;padding:0 24px">
+    <div class="adsense-inner">
+      <i class="fas fa-rectangle-ad" style="font-size:20px;opacity:0.3"></i>
+      <span data-ar="إعلان Google AdSense - 728×90" data-en="Google AdSense Ad Space - 728×90">إعلان Google AdSense - 728×90</span>
+    </div>
+  </div>
+
+  <div id="app">
+    <!-- Search -->
+    <div class="search-wrap">
+      <i class="fas fa-search"></i>
+      <input type="text" id="search-input" placeholder="ابحث عن أداة..." oninput="filterTools(this.value)">
+    </div>
+
+    <!-- Category Filter -->
+    <div class="cat-filter">
+      <button class="cat-btn active" data-cat="all" onclick="filterCat('all')"><i class="fas fa-th"></i> <span data-ar="الكل" data-en="All">الكل</span></button>
+      <button class="cat-btn" data-cat="video" onclick="filterCat('video')"><i class="fas fa-film"></i> <span data-ar="فيديو" data-en="Video">فيديو</span></button>
+      <button class="cat-btn" data-cat="audio" onclick="filterCat('audio')"><i class="fas fa-music"></i> <span data-ar="صوت" data-en="Audio">صوت</span></button>
+      <button class="cat-btn" data-cat="pdf" onclick="filterCat('pdf')"><i class="fas fa-file-pdf"></i> <span data-ar="PDF" data-en="PDF">PDF</span></button>
+      <button class="cat-btn" data-cat="convert" onclick="filterCat('convert')"><i class="fas fa-exchange-alt"></i> <span data-ar="محولات" data-en="Converters">محولات</span></button>
+    </div>
+
+    <!-- Tools Grid -->
+    <div id="tools-container"></div>
+
+    <!-- Middle AdSense -->
+    <div class="adsense-banner" style="height:250px;margin:32px auto">
+      <div class="adsense-inner" style="flex-direction:column">
+        <i class="fas fa-rectangle-ad" style="font-size:28px;opacity:0.2"></i>
+        <span style="margin-top:8px" data-ar="إعلان Google AdSense - 336×280" data-en="Google AdSense Ad Space - 336×280">إعلان Google AdSense - 336×280</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <a class="logo" href="index.html">
+        <div class="logo-icon">A</div>
+        <div class="logo-text">
+          <span class="en">ArabTools</span>
+          <span class="ar">عرب تولز</span>
+        </div>
+      </a>
+      <div class="footer-links">
+        <a class="footer-link" href="index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+        <a class="footer-link" href="pages/help.html" data-ar="المساعدة" data-en="Help">المساعدة</a>
+        <a class="footer-link" href="pages/contact.html" data-ar="اتصل بنا" data-en="Contact Us">اتصل بنا</a>
+        <a class="footer-link" href="pages/privacy.html" data-ar="سياسة الخصوصية" data-en="Privacy Policy">سياسة الخصوصية</a>
+      </div>
+      <p class="footer-copy" id="footer-copy">© 2025 عرب تولز — جميع الحقوق محفوظة</p>
+    </div>
+  </footer>
+
+  <script src="js/shared.js"></script>
+</body>
+</html>
