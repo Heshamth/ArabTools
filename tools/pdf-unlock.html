@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Unlock PDF | ArabTools</title>
+<meta name="description" content="فتح قفل PDF - Unlock PDF | ArabTools">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+</head>
+<body>
+<header id="site-header"><div class="header-inner">
+<a class="logo" href="../index.html"><div class="logo-icon">A</div><div class="logo-text"><span class="en">ArabTools</span><span class="ar">عرب تولز</span></div></a>
+<nav class="main-nav"><a class="nav-link" href="../index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a><a class="nav-link" href="../pages/help.html" data-ar="مساعدة" data-en="Help">مساعدة</a></nav>
+<button class="lang-toggle" onclick="toggleLang()"><i class="fas fa-globe globe"></i><span id="lang-label">EN</span></button>
+</div></header>
+<div id="toast-container"></div>
+<div class="tool-page-wrap">
+<div class="adsense-banner inline" style="margin-bottom:24px"><div class="adsense-inner"><i class="fas fa-rectangle-ad" style="opacity:0.2"></i> <span data-ar="مساحة إعلانية" data-en="Ad Space">مساحة إعلانية</span></div></div>
+<div class="tool-page-header">
+<a class="back-btn" href="../index.html"><i class="fas fa-arrow-left"></i> <span data-ar="رجوع" data-en="Back">رجوع</span></a>
+<div class="tool-page-icon" style="background:#ef444422;color:#ef4444"><i class="fas fa-unlock"></i></div>
+<div class="tool-page-info"><h1><span data-ar="فتح قفل PDF" data-en="Unlock PDF">فتح قفل PDF</span></h1><p><span data-ar="أزل كلمة المرور" data-en="Remove PDF password">أزل كلمة المرور</span></p></div>
+</div>
+<div class="tool-workspace">
+<div class="upload-zone" id="uz-pu"><input type="file" id="fi-pu" accept=".pdf"><i class="fas fa-cloud-upload-alt"></i><h3>ارفع ملف PDF المحمي</h3><p>.pdf</p><button class="btn btn-primary btn-sm" onclick="document.getElementById('fi-pu').click()"><i class="fas fa-folder-open"></i> <span data-ar="اختر ملفاً" data-en="Choose File">اختر ملفاً</span></button></div>
+<div id="ctrl" style="display:none;margin-top:24px">
+<div class="form-group"><label class="form-label" data-ar="كلمة المرور الحالية:" data-en="Current Password:">كلمة المرور الحالية:</label><input type="password" class="form-control" id="pw" placeholder="Enter current password"></div>
+<button class="btn btn-primary btn-lg" onclick="doUnlock()"><i class="fas fa-unlock"></i> <span data-ar="فتح القفل وتنزيل" data-en="Unlock & Download">فتح القفل وتنزيل</span></button>
+</div>
+<script>
+let file=null;
+setupDropZone(document.getElementById('uz-pu'),document.getElementById('fi-pu'),f=>{file=f;document.getElementById('ctrl').style.display='block';});
+async function doUnlock(){if(!file)return;const pw=document.getElementById('pw').value;try{const ab=await file.arrayBuffer();const pdf=await PDFLib.PDFDocument.load(ab,{password:pw});const bytes=await pdf.save();download(new Blob([bytes],{type:'application/pdf'}),'unlocked.pdf');toast(lang==='ar'?'تم فتح القفل!':'Unlocked!','success');}catch(e){toast(lang==='ar'?'كلمة المرور خاطئة أو الملف تالف':'Wrong password or corrupted file','error');}}
+</script></div>
+</div>
+<footer><div class="footer-inner">
+<a class="logo" href="../index.html"><div class="logo-icon">A</div><div class="logo-text"><span class="en">ArabTools</span><span class="ar">عرب تولز</span></div></a>
+<p class="footer-copy" id="footer-copy">© 2025 عرب تولز — جميع الحقوق محفوظة</p>
+</div></footer>
+<script src="../js/shared.js"></script>
+</body></html>

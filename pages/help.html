@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Help | ArabTools</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header id="site-header"><div class="header-inner">
+    <a class="logo" href="../index.html"><div class="logo-icon">A</div><div class="logo-text"><span class="en">ArabTools</span><span class="ar">عرب تولز</span></div></a>
+    <nav class="main-nav">
+      <a class="nav-link" href="../index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+      <a class="nav-link active" href="help.html" data-ar="مساعدة" data-en="Help">مساعدة</a>
+      <a class="nav-link" href="contact.html" data-ar="اتصل بنا" data-en="Contact">اتصل بنا</a>
+      <a class="nav-link" href="privacy.html" data-ar="الخصوصية" data-en="Privacy">الخصوصية</a>
+    </nav>
+    <button class="lang-toggle" onclick="toggleLang()"><i class="fas fa-globe globe"></i><span id="lang-label">EN</span></button>
+  </div></header>
+  <div id="toast-container"></div>
+  <div style="max-width:1280px;margin:0 auto;padding:32px 24px">
+    <div class="page-hero">
+      <h1 data-ar="المساعدة" data-en="Help Center">المساعدة</h1>
+      <p data-ar="كل ما تحتاج معرفته عن استخدام عرب تولز" data-en="Everything you need to know about using ArabTools">كل ما تحتاج معرفته عن استخدام عرب تولز</p>
+    </div>
+    <div class="page-content">
+      <h2 data-ar="كيف تستخدم الأدوات؟" data-en="How to use the tools?">كيف تستخدم الأدوات؟</h2>
+      <p data-ar="استخدام أدوات عرب تولز بسيط جداً. اتبع الخطوات التالية:" data-en="Using ArabTools is very simple. Follow these steps:">استخدام أدوات عرب تولز بسيط جداً. اتبع الخطوات التالية:</p>
+      <ul>
+        <li data-ar="اختر الأداة المناسبة من الصفحة الرئيسية" data-en="Choose the appropriate tool from the home page">اختر الأداة المناسبة من الصفحة الرئيسية</li>
+        <li data-ar="ارفع الملف الذي تريد معالجته" data-en="Upload the file you want to process">ارفع الملف الذي تريد معالجته</li>
+        <li data-ar="اضبط الإعدادات حسب احتياجك" data-en="Adjust the settings as needed">اضبط الإعدادات حسب احتياجك</li>
+        <li data-ar="انقر على زر التطبيق أو التحويل" data-en="Click the Apply or Convert button">انقر على زر التطبيق أو التحويل</li>
+        <li data-ar="نزّل الملف الناتج" data-en="Download the resulting file">نزّل الملف الناتج</li>
+      </ul>
+      <h2 data-ar="ما هي صيغ الملفات المدعومة؟" data-en="What file formats are supported?">ما هي صيغ الملفات المدعومة؟</h2>
+      <p data-ar="تدعم أدواتنا معظم الصيغ الشائعة: MP4, WebM, MOV, AVI, MP3, WAV, OGG, JPG, PNG, PDF وغيرها الكثير." data-en="Our tools support most common formats: MP4, WebM, MOV, AVI, MP3, WAV, OGG, JPG, PNG, PDF and many more.">تدعم أدواتنا معظم الصيغ الشائعة: MP4, WebM, MOV, AVI, MP3, WAV, OGG, JPG, PNG, PDF وغيرها الكثير.</p>
+      <h2 data-ar="هل بياناتي آمنة؟" data-en="Is my data safe?">هل بياناتي آمنة؟</h2>
+      <p data-ar="نعم! معظم أدوات عرب تولز تعمل بالكامل داخل متصفحك دون رفع ملفاتك إلى أي خادم." data-en="Yes! Most ArabTools run entirely within your browser without uploading your files to any server.">نعم! معظم أدوات عرب تولز تعمل بالكامل داخل متصفحك دون رفع ملفاتك إلى أي خادم.</p>
+      <h2 data-ar="هل الأدوات مجانية؟" data-en="Are the tools free?">هل الأدوات مجانية؟</h2>
+      <p data-ar="نعم، جميع الأدوات مجانية تماماً. لا حاجة للتسجيل أو الاشتراك." data-en="Yes, all tools are completely free. No registration or subscription needed.">نعم، جميع الأدوات مجانية تماماً. لا حاجة للتسجيل أو الاشتراك.</p>
+    </div>
+  </div>
+  <footer><div class="footer-inner">
+    <a class="logo" href="../index.html"><div class="logo-icon">A</div><div class="logo-text"><span class="en">ArabTools</span><span class="ar">عرب تولز</span></div></a>
+    <div class="footer-links">
+      <a class="footer-link" href="../index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+      <a class="footer-link" href="help.html" data-ar="المساعدة" data-en="Help">المساعدة</a>
+      <a class="footer-link" href="contact.html" data-ar="اتصل بنا" data-en="Contact Us">اتصل بنا</a>
+      <a class="footer-link" href="privacy.html" data-ar="سياسة الخصوصية" data-en="Privacy Policy">سياسة الخصوصية</a>
+    </div>
+    <p class="footer-copy" id="footer-copy">© 2025 عرب تولز — جميع الحقوق محفوظة</p>
+  </div></footer>
+  <script src="../js/shared.js"></script>
+</body>
+</html>

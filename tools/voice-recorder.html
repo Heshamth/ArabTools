@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Voice Recorder | ArabTools</title>
+<meta name="description" content="تسجيل صوت - Voice Recorder | ArabTools">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="../css/style.css">
+
+</head>
+<body>
+<header id="site-header"><div class="header-inner">
+<a class="logo" href="../index.html"><div class="logo-icon">A</div><div class="logo-text"><span class="en">ArabTools</span><span class="ar">عرب تولز</span></div></a>
+<nav class="main-nav"><a class="nav-link" href="../index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a><a class="nav-link" href="../pages/help.html" data-ar="مساعدة" data-en="Help">مساعدة</a></nav>
+<button class="lang-toggle" onclick="toggleLang()"><i class="fas fa-globe globe"></i><span id="lang-label">EN</span></button>
+</div></header>
+<div id="toast-container"></div>
+<div class="tool-page-wrap">
+<div class="adsense-banner inline" style="margin-bottom:24px"><div class="adsense-inner"><i class="fas fa-rectangle-ad" style="opacity:0.2"></i> <span data-ar="مساحة إعلانية" data-en="Ad Space">مساحة إعلانية</span></div></div>
+<div class="tool-page-header">
+<a class="back-btn" href="../index.html"><i class="fas fa-arrow-left"></i> <span data-ar="رجوع" data-en="Back">رجوع</span></a>
+<div class="tool-page-icon" style="background:#0ea5e922;color:#0ea5e9"><i class="fas fa-microphone"></i></div>
+<div class="tool-page-info"><h1><span data-ar="تسجيل صوت" data-en="Voice Recorder">تسجيل صوت</span></h1><p><span data-ar="سجّل صوتك" data-en="Record your voice">سجّل صوتك</span></p></div>
+</div>
+<div class="tool-workspace">
+<div class="recorder-ui">
+<div class="waveform" id="wave"><div class="wave-bar" style="animation-delay:0s"></div><div class="wave-bar" style="animation-delay:0.04s"></div><div class="wave-bar" style="animation-delay:0.08s"></div><div class="wave-bar" style="animation-delay:0.12s"></div><div class="wave-bar" style="animation-delay:0.16s"></div><div class="wave-bar" style="animation-delay:0.2s"></div><div class="wave-bar" style="animation-delay:0.24s"></div><div class="wave-bar" style="animation-delay:0.28s"></div><div class="wave-bar" style="animation-delay:0.32s"></div><div class="wave-bar" style="animation-delay:0.36s"></div><div class="wave-bar" style="animation-delay:0.4s"></div><div class="wave-bar" style="animation-delay:0.44s"></div><div class="wave-bar" style="animation-delay:0.48s"></div><div class="wave-bar" style="animation-delay:0.52s"></div><div class="wave-bar" style="animation-delay:0.56s"></div><div class="wave-bar" style="animation-delay:0.6s"></div><div class="wave-bar" style="animation-delay:0.64s"></div><div class="wave-bar" style="animation-delay:0.68s"></div><div class="wave-bar" style="animation-delay:0.72s"></div><div class="wave-bar" style="animation-delay:0.76s"></div></div>
+<div class="rec-timer" id="timer">00:00</div>
+<button class="rec-btn" id="rec-btn" onclick="toggleRec()"><i class="fas fa-microphone" id="rec-icon"></i></button>
+<p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:20px"><span data-ar="اضغط للبدء" data-en="Click to start">اضغط للبدء</span></p>
+<div id="result" style="display:none">
+<audio controls style="width:100%;margin:16px 0" id="audio-out"></audio>
+<button class="btn btn-primary" onclick="dlRec()"><i class="fas fa-download"></i> <span data-ar="تنزيل" data-en="Download">تنزيل</span></button>
+</div>
+</div>
+<script>
+let rec=null,chunks=[],timer=null,sec=0,blob=null;
+function toggleRec(){
+if(!rec){navigator.mediaDevices.getUserMedia({audio:true}).then(s=>{
+rec=new MediaRecorder(s);chunks=[];
+rec.ondataavailable=e=>chunks.push(e.data);
+rec.onstop=()=>{blob=new Blob(chunks,{type:'audio/webm'});document.getElementById('audio-out').src=URL.createObjectURL(blob);document.getElementById('result').style.display='block';s.getTracks().forEach(t=>t.stop());};
+rec.start();sec=0;timer=setInterval(()=>{sec++;document.getElementById('timer').textContent=fmtTime(sec);},1000);
+document.getElementById('rec-btn').classList.add('recording');document.getElementById('rec-icon').className='fas fa-stop';document.getElementById('wave').classList.add('active');
+toast(lang==='ar'?'جاري التسجيل...':'Recording...','info');
+}).catch(()=>toast(lang==='ar'?'تعذر الوصول للميكروفون':'Microphone access denied','error'));}
+else{rec.stop();rec=null;clearInterval(timer);document.getElementById('rec-btn').classList.remove('recording');document.getElementById('rec-icon').className='fas fa-microphone';document.getElementById('wave').classList.remove('active');}
+}
+function dlRec(){if(blob)download(blob,'recording.webm');}
+</script></div>
+<div class="adsense-banner" style="height:250px;margin:32px 0"><div class="adsense-inner" style="flex-direction:column"><i class="fas fa-rectangle-ad" style="font-size:28px;opacity:0.2"></i><span style="margin-top:8px" data-ar="إعلان" data-en="Ad Space">إعلان</span></div></div>
+</div>
+<footer><div class="footer-inner">
+<a class="logo" href="../index.html"><div class="logo-icon">A</div><div class="logo-text"><span class="en">ArabTools</span><span class="ar">عرب تولز</span></div></a>
+<div class="footer-links"><a class="footer-link" href="../index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a><a class="footer-link" href="../pages/help.html" data-ar="المساعدة" data-en="Help">المساعدة</a><a class="footer-link" href="../pages/privacy.html" data-ar="سياسة الخصوصية" data-en="Privacy">سياسة الخصوصية</a></div>
+<p class="footer-copy" id="footer-copy">© 2025 عرب تولز — جميع الحقوق محفوظة</p>
+</div></footer>
+<script src="../js/shared.js"></script>
+</body></html>

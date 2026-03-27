@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Add Page Numbers | ArabTools</title>
+<meta name="description" content="ترقيم الصفحات - Add Page Numbers | ArabTools">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+</head>
+<body>
+<header id="site-header"><div class="header-inner">
+<a class="logo" href="../index.html"><div class="logo-icon">A</div><div class="logo-text"><span class="en">ArabTools</span><span class="ar">عرب تولز</span></div></a>
+<nav class="main-nav"><a class="nav-link" href="../index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a><a class="nav-link" href="../pages/help.html" data-ar="مساعدة" data-en="Help">مساعدة</a></nav>
+<button class="lang-toggle" onclick="toggleLang()"><i class="fas fa-globe globe"></i><span id="lang-label">EN</span></button>
+</div></header>
+<div id="toast-container"></div>
+<div class="tool-page-wrap">
+<div class="adsense-banner inline" style="margin-bottom:24px"><div class="adsense-inner"><i class="fas fa-rectangle-ad" style="opacity:0.2"></i> <span data-ar="مساحة إعلانية" data-en="Ad Space">مساحة إعلانية</span></div></div>
+<div class="tool-page-header">
+<a class="back-btn" href="../index.html"><i class="fas fa-arrow-left"></i> <span data-ar="رجوع" data-en="Back">رجوع</span></a>
+<div class="tool-page-icon" style="background:#ef444422;color:#ef4444"><i class="fas fa-list-ol"></i></div>
+<div class="tool-page-info"><h1><span data-ar="ترقيم الصفحات" data-en="Add Page Numbers">ترقيم الصفحات</span></h1><p><span data-ar="أضف أرقام الصفحات" data-en="Add page numbers">أضف أرقام الصفحات</span></p></div>
+</div>
+<div class="tool-workspace">
+<div class="upload-zone" id="uz-pn"><input type="file" id="fi-pn" accept=".pdf"><i class="fas fa-cloud-upload-alt"></i><h3>ارفع ملف PDF</h3><p>.pdf</p><button class="btn btn-primary btn-sm" onclick="document.getElementById('fi-pn').click()"><i class="fas fa-folder-open"></i> <span data-ar="اختر ملفاً" data-en="Choose File">اختر ملفاً</span></button></div>
+<div id="ctrl" style="display:none;margin-top:24px">
+<button class="btn btn-primary btn-lg" onclick="doNumbers()"><i class="fas fa-list-ol"></i> <span data-ar="إضافة الأرقام وتنزيل" data-en="Add Numbers & Download">إضافة الأرقام وتنزيل</span></button>
+</div>
+<script>
+let file=null;
+setupDropZone(document.getElementById('uz-pn'),document.getElementById('fi-pn'),f=>{file=f;document.getElementById('ctrl').style.display='block';});
+async function doNumbers(){if(!file)return;try{const ab=await file.arrayBuffer();const pdf=await PDFLib.PDFDocument.load(ab);const font=await pdf.embedFont(PDFLib.StandardFonts.Helvetica);const pages=pdf.getPages();pages.forEach((page,i)=>{const{width}=page.getSize();page.drawText(String(i+1),{x:width/2-5,y:20,size:12,font:font,color:PDFLib.rgb(0.3,0.3,0.3)});});const bytes=await pdf.save();download(new Blob([bytes],{type:'application/pdf'}),'numbered.pdf');toast(lang==='ar'?'تم!':'Done!','success');}catch(e){toast('Error','error');}}
+</script></div>
+</div>
+<footer><div class="footer-inner">
+<a class="logo" href="../index.html"><div class="logo-icon">A</div><div class="logo-text"><span class="en">ArabTools</span><span class="ar">عرب تولز</span></div></a>
+<p class="footer-copy" id="footer-copy">© 2025 عرب تولز — جميع الحقوق محفوظة</p>
+</div></footer>
+<script src="../js/shared.js"></script>
+</body></html>

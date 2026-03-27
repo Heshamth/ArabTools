@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Video Converter | ArabTools</title>
+<meta name="description" content="محول فيديو - Video Converter | ArabTools">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header id="site-header"><div class="header-inner">
+<a class="logo" href="../index.html"><div class="logo-icon">A</div><div class="logo-text"><span class="en">ArabTools</span><span class="ar">عرب تولز</span></div></a>
+<nav class="main-nav"><a class="nav-link" href="../index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a><a class="nav-link" href="../pages/help.html" data-ar="مساعدة" data-en="Help">مساعدة</a></nav>
+<button class="lang-toggle" onclick="toggleLang()"><i class="fas fa-globe globe"></i><span id="lang-label">EN</span></button>
+</div></header>
+<div id="toast-container"></div>
+<div class="tool-page-wrap">
+<div class="adsense-banner inline" style="margin-bottom:24px"><div class="adsense-inner"><i class="fas fa-rectangle-ad" style="opacity:0.2"></i> <span data-ar="مساحة إعلانية" data-en="Ad Space">مساحة إعلانية</span></div></div>
+<div class="tool-page-header">
+<a class="back-btn" href="../index.html"><i class="fas fa-arrow-left"></i> <span data-ar="رجوع" data-en="Back">رجوع</span></a>
+<div class="tool-page-icon" style="background:#8b5cf622;color:#8b5cf6"><i class="fas fa-exchange-alt"></i></div>
+<div class="tool-page-info"><h1><span data-ar="محول فيديو" data-en="Video Converter">محول فيديو</span></h1><p><span data-ar="حوّل صيغ الفيديو" data-en="Convert video formats">حوّل صيغ الفيديو</span></p></div>
+</div>
+<div class="tool-workspace">
+<div class="upload-zone" id="uz-vc"><input type="file" id="fi-vc" accept=".mp4,.webm,.mov,.avi,.mkv"><i class="fas fa-cloud-upload-alt"></i><h3>ارفع ملف الفيديو</h3><p>.mp4,.webm,.mov,.avi,.mkv</p><button class="btn btn-primary btn-sm" onclick="document.getElementById('fi-vc').click()"><i class="fas fa-folder-open"></i> <span data-ar="اختر ملفاً" data-en="Choose File">اختر ملفاً</span></button></div>
+<div id="ctrl" style="display:none;margin-top:24px">
+<div class="media-preview"><video id="pv" controls></video></div>
+<div class="form-group" style="margin-top:16px"><label class="form-label" data-ar="التحويل إلى:" data-en="Convert to:">التحويل إلى:</label><select class="form-control" id="fmt"><option value="webm">WebM</option></select></div>
+<p style="color:var(--text-muted);font-size:13px;margin-bottom:16px"><i class="fas fa-info-circle"></i> <span data-ar="يتم التحويل إلى WebM عبر المتصفح" data-en="Converts to WebM via browser Canvas">يتم التحويل إلى WebM عبر المتصفح</span></p>
+<button class="btn btn-primary btn-lg" onclick="doConvert()"><i class="fas fa-exchange-alt"></i> <span data-ar="تحويل" data-en="Convert">تحويل</span></button>
+<div id="result" style="display:none" class="result-box"><h3 data-ar="تم!" data-en="Done!">تم!</h3><video id="out" controls style="width:100%;margin:12px 0;border-radius:8px"></video><button class="btn btn-primary" onclick="if(window._blob)download(window._blob,'converted.webm')"><i class="fas fa-download"></i></button></div>
+</div>
+<script>
+let file=null;
+setupDropZone(document.getElementById('uz-vc'),document.getElementById('fi-vc'),f=>{file=f;document.getElementById('pv').src=URL.createObjectURL(f);document.getElementById('ctrl').style.display='block';});
+async function doConvert(){if(!file)return;toast(lang==='ar'?'جاري التحويل...':'Converting...','info');try{const blob=await processVideoWithCanvas(file,(ctx,video,canvas)=>{ctx.drawImage(video,0,0,canvas.width,canvas.height);});window._blob=blob;document.getElementById('out').src=URL.createObjectURL(blob);document.getElementById('result').style.display='block';toast(lang==='ar'?'تم!':'Done!','success');}catch(e){toast('Error','error');}}
+</script></div>
+</div>
+<footer><div class="footer-inner">
+<a class="logo" href="../index.html"><div class="logo-icon">A</div><div class="logo-text"><span class="en">ArabTools</span><span class="ar">عرب تولز</span></div></a>
+<p class="footer-copy" id="footer-copy">© 2025 عرب تولز — جميع الحقوق محفوظة</p>
+</div></footer>
+<script src="../js/shared.js"></script>
+</body></html>

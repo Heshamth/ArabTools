@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | ArabTools</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header id="site-header"><div class="header-inner">
+    <a class="logo" href="../index.html"><div class="logo-icon">A</div><div class="logo-text"><span class="en">ArabTools</span><span class="ar">عرب تولز</span></div></a>
+    <nav class="main-nav">
+      <a class="nav-link" href="../index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+      <a class="nav-link" href="help.html" data-ar="مساعدة" data-en="Help">مساعدة</a>
+      <a class="nav-link active" href="contact.html" data-ar="اتصل بنا" data-en="Contact">اتصل بنا</a>
+      <a class="nav-link" href="privacy.html" data-ar="الخصوصية" data-en="Privacy">الخصوصية</a>
+    </nav>
+    <button class="lang-toggle" onclick="toggleLang()"><i class="fas fa-globe globe"></i><span id="lang-label">EN</span></button>
+  </div></header>
+  <div id="toast-container"></div>
+  <div style="max-width:1280px;margin:0 auto;padding:32px 24px">
+    <div class="page-hero">
+      <h1 data-ar="اتصل بنا" data-en="Contact Us">اتصل بنا</h1>
+      <p data-ar="نحن هنا للمساعدة — تواصل معنا في أي وقت" data-en="We're here to help — reach out anytime">نحن هنا للمساعدة — تواصل معنا في أي وقت</p>
+    </div>
+    <div class="page-content">
+      <h2 data-ar="معلومات التواصل" data-en="Contact Information">معلومات التواصل</h2>
+      <p><i class="fas fa-envelope" style="color:var(--accent);margin-inline-end:8px"></i> <strong data-ar="البريد الإلكتروني:" data-en="Email:">البريد الإلكتروني:</strong> info@arabtools.com</p>
+      <p><i class="fas fa-globe" style="color:var(--accent);margin-inline-end:8px"></i> <strong data-ar="الموقع:" data-en="Website:">الموقع:</strong> www.arabtools.com</p>
+      <h2 data-ar="تواصل معنا" data-en="Get in Touch">تواصل معنا</h2>
+      <div style="display:flex;gap:16px;margin-top:24px;flex-wrap:wrap">
+        <a href="mailto:info@arabtools.com" class="btn btn-primary"><i class="fas fa-envelope"></i> <span data-ar="أرسل بريداً" data-en="Send Email">أرسل بريداً</span></a>
+        <a href="#" class="btn btn-secondary"><i class="fab fa-twitter"></i> Twitter</a>
+        <a href="#" class="btn btn-secondary"><i class="fab fa-facebook"></i> Facebook</a>
+      </div>
+      <h2 style="margin-top:40px" data-ar="الأسئلة الشائعة" data-en="FAQs">الأسئلة الشائعة</h2>
+      <p><span data-ar="تحقق أولاً من" data-en="Check the">تحقق أولاً من</span> <a href="help.html" style="color:var(--accent)" data-ar="صفحة المساعدة" data-en="Help page">صفحة المساعدة</a> <span data-ar="للإجابة على معظم الأسئلة." data-en="for answers to most questions.">للإجابة على معظم الأسئلة.</span></p>
+    </div>
+  </div>
+  <footer><div class="footer-inner">
+    <a class="logo" href="../index.html"><div class="logo-icon">A</div><div class="logo-text"><span class="en">ArabTools</span><span class="ar">عرب تولز</span></div></a>
+    <div class="footer-links">
+      <a class="footer-link" href="../index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+      <a class="footer-link" href="help.html" data-ar="المساعدة" data-en="Help">المساعدة</a>
+      <a class="footer-link" href="contact.html" data-ar="اتصل بنا" data-en="Contact Us">اتصل بنا</a>
+      <a class="footer-link" href="privacy.html" data-ar="سياسة الخصوصية" data-en="Privacy Policy">سياسة الخصوصية</a>
+    </div>
+    <p class="footer-copy" id="footer-copy">© 2025 عرب تولز — جميع الحقوق محفوظة</p>
+  </div></footer>
+  <script src="../js/shared.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Loop Video | ArabTools</title>
+<meta name="description" content="تكرار الفيديو - Loop Video | ArabTools">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header id="site-header"><div class="header-inner">
+<a class="logo" href="../index.html"><div class="logo-icon">A</div><div class="logo-text"><span class="en">ArabTools</span><span class="ar">عرب تولز</span></div></a>
+<nav class="main-nav"><a class="nav-link" href="../index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a><a class="nav-link" href="../pages/help.html" data-ar="مساعدة" data-en="Help">مساعدة</a></nav>
+<button class="lang-toggle" onclick="toggleLang()"><i class="fas fa-globe globe"></i><span id="lang-label">EN</span></button>
+</div></header>
+<div id="toast-container"></div>
+<div class="tool-page-wrap">
+<div class="adsense-banner inline" style="margin-bottom:24px"><div class="adsense-inner"><i class="fas fa-rectangle-ad" style="opacity:0.2"></i> <span data-ar="مساحة إعلانية" data-en="Ad Space">مساحة إعلانية</span></div></div>
+<div class="tool-page-header">
+<a class="back-btn" href="../index.html"><i class="fas fa-arrow-left"></i> <span data-ar="رجوع" data-en="Back">رجوع</span></a>
+<div class="tool-page-icon" style="background:#8b5cf622;color:#8b5cf6"><i class="fas fa-redo"></i></div>
+<div class="tool-page-info"><h1><span data-ar="تكرار الفيديو" data-en="Loop Video">تكرار الفيديو</span></h1><p><span data-ar="كرر الفيديو عدة مرات" data-en="Loop video multiple times">كرر الفيديو عدة مرات</span></p></div>
+</div>
+<div class="tool-workspace">
+<div class="upload-zone" id="uz-lv"><input type="file" id="fi-lv" accept=".mp4,.webm,.mov"><i class="fas fa-cloud-upload-alt"></i><h3 data-ar="ارفع الفيديو" data-en="Upload File">ارفع الفيديو</h3><p>.mp4,.webm,.mov</p><button class="btn btn-primary btn-sm" onclick="document.getElementById('fi-lv').click()"><i class="fas fa-folder-open"></i> <span data-ar="اختر ملفاً" data-en="Choose File">اختر ملفاً</span></button></div>
+<div id="ctrl" style="display:none;margin-top:24px">
+<div class="media-preview"><video id="pv" controls loop></video></div>
+<div class="form-group" style="margin-top:16px"><label class="form-label" data-ar="عدد مرات التكرار:" data-en="Number of loops:">عدد مرات التكرار:</label>
+<input type="number" class="form-control" id="count" value="3" min="2" max="20" style="max-width:120px"></div>
+<button class="btn btn-primary btn-lg" onclick="doLoop()"><i class="fas fa-redo"></i> <span data-ar="إنشاء وحفظ" data-en="Create & Save">إنشاء وحفظ</span></button>
+<div id="result" style="display:none" class="result-box"><h3 data-ar="تم!" data-en="Done!">تم!</h3><video id="out" controls style="width:100%;margin:12px 0;border-radius:8px"></video><button class="btn btn-primary" onclick="if(window._blob)download(window._blob,'looped.webm')"><i class="fas fa-download"></i></button></div>
+</div>
+<script>
+let file=null;
+setupDropZone(document.getElementById('uz-lv'),document.getElementById('fi-lv'),f=>{file=f;document.getElementById('pv').src=URL.createObjectURL(f);document.getElementById('ctrl').style.display='block';});
+async function doLoop(){if(!file)return;const count=parseInt(document.getElementById('count').value)||3;toast(lang==='ar'?'جاري الإنشاء...':'Creating...','info');try{const vid=document.createElement('video');vid.src=URL.createObjectURL(file);vid.muted=true;await new Promise(r=>{vid.onloadedmetadata=r;});const totalDur=vid.duration*count;const blob=await processVideoWithCanvas(file,(ctx,video,canvas)=>{ctx.drawImage(video,0,0,canvas.width,canvas.height);},{endTime:totalDur});window._blob=blob;document.getElementById('out').src=URL.createObjectURL(blob);document.getElementById('result').style.display='block';toast(lang==='ar'?'تم!':'Done!','success');}catch(e){toast('Error','error');}}
+</script></div>
+</div>
+<footer><div class="footer-inner">
+<a class="logo" href="../index.html"><div class="logo-icon">A</div><div class="logo-text"><span class="en">ArabTools</span><span class="ar">عرب تولز</span></div></a>
+<p class="footer-copy" id="footer-copy">© 2025 عرب تولز — جميع الحقوق محفوظة</p>
+</div></footer>
+<script src="../js/shared.js"></script>
+</body></html>

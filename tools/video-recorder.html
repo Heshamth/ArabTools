@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Video Recorder | ArabTools</title>
+<meta name="description" content="تسجيل فيديو - Video Recorder | ArabTools">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="../css/style.css">
+
+</head>
+<body>
+<header id="site-header"><div class="header-inner">
+<a class="logo" href="../index.html"><div class="logo-icon">A</div><div class="logo-text"><span class="en">ArabTools</span><span class="ar">عرب تولز</span></div></a>
+<nav class="main-nav"><a class="nav-link" href="../index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a><a class="nav-link" href="../pages/help.html" data-ar="مساعدة" data-en="Help">مساعدة</a></nav>
+<button class="lang-toggle" onclick="toggleLang()"><i class="fas fa-globe globe"></i><span id="lang-label">EN</span></button>
+</div></header>
+<div id="toast-container"></div>
+<div class="tool-page-wrap">
+<div class="adsense-banner inline" style="margin-bottom:24px"><div class="adsense-inner"><i class="fas fa-rectangle-ad" style="opacity:0.2"></i> <span data-ar="مساحة إعلانية" data-en="Ad Space">مساحة إعلانية</span></div></div>
+<div class="tool-page-header">
+<a class="back-btn" href="../index.html"><i class="fas fa-arrow-left"></i> <span data-ar="رجوع" data-en="Back">رجوع</span></a>
+<div class="tool-page-icon" style="background:#8b5cf622;color:#8b5cf6"><i class="fas fa-video"></i></div>
+<div class="tool-page-info"><h1><span data-ar="تسجيل فيديو" data-en="Video Recorder">تسجيل فيديو</span></h1><p><span data-ar="سجل فيديو من الكاميرا" data-en="Record from webcam">سجل فيديو من الكاميرا</span></p></div>
+</div>
+<div class="tool-workspace">
+<div class="recorder-ui">
+<div class="media-preview" style="margin-bottom:20px"><video id="cam" autoplay muted playsinline style="width:100%;max-height:320px;background:#000"></video></div>
+<div class="rec-timer" id="timer">00:00</div>
+<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+<button class="btn btn-primary btn-lg" onclick="startRec()"><i class="fas fa-video"></i> <span data-ar="بدء التسجيل" data-en="Start Recording">بدء التسجيل</span></button>
+<button class="btn btn-danger btn-lg" onclick="stopRec()" id="stop-btn" style="display:none"><i class="fas fa-stop"></i> <span data-ar="إيقاف" data-en="Stop">إيقاف</span></button>
+</div>
+<div id="result" style="display:none;margin-top:20px">
+<video controls style="width:100%;border-radius:8px" id="preview"></video>
+<button class="btn btn-primary" style="margin-top:12px" onclick="dlVid()"><i class="fas fa-download"></i> <span data-ar="تنزيل" data-en="Download">تنزيل</span></button>
+</div>
+</div>
+<script>
+let stream=null,rec=null,chunks=[],blob=null,sec=0,tmr=null;
+(async()=>{try{stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});document.getElementById('cam').srcObject=stream;}catch(e){toast(lang==='ar'?'تعذر الوصول للكاميرا':'Camera access denied','error');}})();
+function startRec(){if(!stream)return;chunks=[];rec=new MediaRecorder(stream);rec.ondataavailable=e=>chunks.push(e.data);rec.onstop=()=>{blob=new Blob(chunks,{type:'video/webm'});document.getElementById('preview').src=URL.createObjectURL(blob);document.getElementById('result').style.display='block';};rec.start();sec=0;tmr=setInterval(()=>{sec++;document.getElementById('timer').textContent=fmtTime(sec);},1000);document.getElementById('stop-btn').style.display='inline-flex';toast(lang==='ar'?'جاري التسجيل...':'Recording...','info');}
+function stopRec(){if(rec)rec.stop();clearInterval(tmr);document.getElementById('stop-btn').style.display='none';}
+function dlVid(){if(blob)download(blob,'video.webm');}
+</script></div>
+<div class="adsense-banner" style="height:250px;margin:32px 0"><div class="adsense-inner" style="flex-direction:column"><i class="fas fa-rectangle-ad" style="font-size:28px;opacity:0.2"></i><span style="margin-top:8px" data-ar="إعلان" data-en="Ad Space">إعلان</span></div></div>
+</div>
+<footer><div class="footer-inner">
+<a class="logo" href="../index.html"><div class="logo-icon">A</div><div class="logo-text"><span class="en">ArabTools</span><span class="ar">عرب تولز</span></div></a>
+<div class="footer-links"><a class="footer-link" href="../index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a><a class="footer-link" href="../pages/help.html" data-ar="المساعدة" data-en="Help">المساعدة</a><a class="footer-link" href="../pages/privacy.html" data-ar="سياسة الخصوصية" data-en="Privacy">سياسة الخصوصية</a></div>
+<p class="footer-copy" id="footer-copy">© 2025 عرب تولز — جميع الحقوق محفوظة</p>
+</div></footer>
+<script src="../js/shared.js"></script>
+</body></html>

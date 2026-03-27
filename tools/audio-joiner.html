@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Audio Joiner | ArabTools</title>
+<meta name="description" content="ربط ملفات صوتية - Audio Joiner | ArabTools">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="../css/style.css">
+
+</head>
+<body>
+<header id="site-header"><div class="header-inner">
+<a class="logo" href="../index.html"><div class="logo-icon">A</div><div class="logo-text"><span class="en">ArabTools</span><span class="ar">عرب تولز</span></div></a>
+<nav class="main-nav"><a class="nav-link" href="../index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a><a class="nav-link" href="../pages/help.html" data-ar="مساعدة" data-en="Help">مساعدة</a></nav>
+<button class="lang-toggle" onclick="toggleLang()"><i class="fas fa-globe globe"></i><span id="lang-label">EN</span></button>
+</div></header>
+<div id="toast-container"></div>
+<div class="tool-page-wrap">
+<div class="adsense-banner inline" style="margin-bottom:24px"><div class="adsense-inner"><i class="fas fa-rectangle-ad" style="opacity:0.2"></i> <span data-ar="مساحة إعلانية" data-en="Ad Space">مساحة إعلانية</span></div></div>
+<div class="tool-page-header">
+<a class="back-btn" href="../index.html"><i class="fas fa-arrow-left"></i> <span data-ar="رجوع" data-en="Back">رجوع</span></a>
+<div class="tool-page-icon" style="background:#0ea5e922;color:#0ea5e9"><i class="fas fa-link"></i></div>
+<div class="tool-page-info"><h1><span data-ar="ربط ملفات صوتية" data-en="Audio Joiner">ربط ملفات صوتية</span></h1><p><span data-ar="ادمج ملفات صوتية" data-en="Join audio files">ادمج ملفات صوتية</span></p></div>
+</div>
+<div class="tool-workspace">
+<div id="files-list" style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px"></div>
+<button class="btn btn-secondary" onclick="document.getElementById('fi').click()"><i class="fas fa-plus"></i> <span data-ar="إضافة ملف صوتي" data-en="Add Audio File">إضافة ملف صوتي</span></button>
+<input type="file" id="fi" accept=".mp3,.wav,.ogg,.webm" style="display:none" onchange="addFile(this)">
+<div id="join-wrap" style="display:none;margin-top:20px"><button class="btn btn-primary btn-lg" onclick="doJoin()"><i class="fas fa-link"></i> <span data-ar="دمج الملفات" data-en="Join Files">دمج الملفات</span></button></div>
+<div id="result" style="display:none;margin-top:20px" class="result-box"><h3 data-ar="تم الدمج" data-en="Joined">تم الدمج</h3><audio id="out" controls style="width:100%;margin:12px 0"></audio><button class="btn btn-primary" onclick="if(window._blob)download(window._blob,'joined.wav')"><i class="fas fa-download"></i> <span data-ar="تنزيل" data-en="Download">تنزيل</span></button></div>
+<script>
+let files=[];
+function addFile(input){const f=input.files[0];if(!f)return;files.push(f);const list=document.getElementById('files-list');const item=document.createElement('div');item.style.cssText='display:flex;align-items:center;gap:10px;background:var(--surface2);padding:10px 14px;border-radius:8px;border:1px solid var(--border)';item.innerHTML=`<i class="fas fa-music" style="color:var(--cat-audio)"></i><span style="flex:1;font-size:14px">${f.name}</span>`;list.appendChild(item);if(files.length>=2)document.getElementById('join-wrap').style.display='block';input.value='';}
+async function doJoin(){if(files.length<2){toast(lang==='ar'?'أضف ملفين':'Add 2+ files','error');return;}try{const ctx=new(window.AudioContext||window.webkitAudioContext)();const buffers=await Promise.all(files.map(async f=>{const ab=await f.arrayBuffer();return ctx.decodeAudioData(ab);}));const totalLen=buffers.reduce((s,b)=>s+b.length,0);const result=ctx.createBuffer(buffers[0].numberOfChannels,totalLen,buffers[0].sampleRate);let offset=0;buffers.forEach(b=>{for(let ch=0;ch<b.numberOfChannels;ch++){result.copyToChannel(b.getChannelData(ch),ch,offset);}offset+=b.length;});const wav=audioBufferToWav(result);const blob=new Blob([wav],{type:'audio/wav'});window._blob=blob;document.getElementById('out').src=URL.createObjectURL(blob);document.getElementById('result').style.display='block';toast(lang==='ar'?'تم الدمج!':'Joined!','success');}catch(e){toast('Error: '+e.message,'error');}}
+</script></div>
+<div class="adsense-banner" style="height:250px;margin:32px 0"><div class="adsense-inner" style="flex-direction:column"><i class="fas fa-rectangle-ad" style="font-size:28px;opacity:0.2"></i><span style="margin-top:8px" data-ar="إعلان" data-en="Ad Space">إعلان</span></div></div>
+</div>
+<footer><div class="footer-inner">
+<a class="logo" href="../index.html"><div class="logo-icon">A</div><div class="logo-text"><span class="en">ArabTools</span><span class="ar">عرب تولز</span></div></a>
+<div class="footer-links"><a class="footer-link" href="../index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a><a class="footer-link" href="../pages/help.html" data-ar="المساعدة" data-en="Help">المساعدة</a><a class="footer-link" href="../pages/privacy.html" data-ar="سياسة الخصوصية" data-en="Privacy">سياسة الخصوصية</a></div>
+<p class="footer-copy" id="footer-copy">© 2025 عرب تولز — جميع الحقوق محفوظة</p>
+</div></footer>
+<script src="../js/shared.js"></script>
+</body></html>
